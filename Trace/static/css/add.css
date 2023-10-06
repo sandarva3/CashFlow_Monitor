@@ -1,0 +1,183 @@
+body {
+    background-color: #000;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+  }
+
+  .container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 40px;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    font-family: Trebuchet, sans-serif;
+  }
+
+  .form-group {
+    margin-bottom: 30px;
+  }
+
+  label {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+
+  .radio-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .radio-group input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .radio-group label {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 10px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .radio-group label:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .radio-group input[type="radio"]:checked + label {
+    background-color: #24516b;
+  }
+
+  .date-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .date-group input[type="date"] {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    width: 200px;
+  }
+
+  .date-group input[type="date"]:hover,
+  .date-group input[type="date"]:focus {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .date-group input[type="checkbox"] {
+    display: none;
+  }
+
+  .date-group label {
+    position: relative;
+    padding-left: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .date-group label:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .date-group label:after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .date-group input[type="checkbox"]:checked + label:before {
+    background-color: #24516b;
+    border-color: #24516b;
+  }
+
+  .date-group input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+  }
+
+  .submit-button {
+    display: block;
+    margin: 0 auto;
+    background-color: #24516b;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 18px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    cursor: pointer;
+  }
+
+  .submit-button:hover {
+    background-color: #192f3f;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    width: 200px;
+  }
+
+  input[type="text"]:hover,
+  input[type="number"]:hover,
+  input[type="text"]:focus,
+  input[type="number"]:focus {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+  .text-input {
+    margin-bottom: 20px;
+  }
+  .number-input {
+    margin-bottom: 20px;
+  }
+  .m-icons {
+    position: relative;
+  }
+  .material-icons {
+    position: absolute;
+    font-size: 35px !important;
+    top: 50px;
+    right: 30%;
+  }

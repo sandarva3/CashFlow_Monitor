@@ -1,0 +1,21 @@
+{% load socialaccount %}
+{% providers_media_js %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <br><br>
+    <h1 style="text-align: center; font-size: 25px;">
+        <b style="font-size: 50px;">Opps!</b><br><br>you entered into Wrong territory.
+    </h1>
+    <br><br>
+    <h3 style="text-align: center; font-size: 35px;">
+        You can click <a href="{% url 'login' %}" style="text-decoration: none; border: 1px solid darkblue;">Here</a>
+    </h3>
+</body>
+</html>

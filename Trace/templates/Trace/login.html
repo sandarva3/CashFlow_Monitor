@@ -1,0 +1,55 @@
+{% load socialaccount %}
+{% providers_media_js %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style>
+      .title {
+        font-size: 30px;
+        border-bottom: 1px solid gray;
+        padding: 2px 5px 2px 5px;
+        text-decoration: none;
+        color: rgb(67, 67, 67);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Change the url name to 'home' -->
+    {% if user.is_authenticated %}
+    <a class="title" href="{% url 'home' username=user.username %}">Home</a>
+    {% endif %}
+
+    <div class="content">
+      <div class="text">Login Form</div>
+      <!-- Change the url name to 'user_login' -->
+      <form method="POST">
+        {% csrf_token %} {% for field in form %}
+        <div class="field" style="margin-bottom: 20px">
+          {{ field }} {{ field.label_tag }} {% if field.name == "username" %}
+          <span class="fas fa-user"></span>
+          {% elif field.name == "password" %}
+          <span class="fas fa-lock"></span>
+          {% endif %} {{ field.errors }}
+        </div>
+        {% endfor %} {{ form.non_field_errors }}
+        <div class="forgot-pass" style="margin-top: 15px">
+          <a href="{% url 'password_reset' %}">Forgot Password?</a>
+        </div>
+        <button>Sign in</button>
+        <div class="sign-up">
+          Not a member?
+          <!-- Change the url name to 'register' -->
+          <a href="{% url 'register' %}">signup now</a>
+        </div>
+      </form>
+      <a href="{% provider_login_url 'google' %}">Continue with Google</a>
+    </div>
+  </body>
+</html>

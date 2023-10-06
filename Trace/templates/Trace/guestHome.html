@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expenditure Table</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+  <style>
+    .register {
+      background-color: rgb(0, 0, 202);
+      font-size: 20px;
+      border-radius: 10px;
+      padding: 2px 5px 2px 5px;
+    }
+
+    .register:hover {
+      background-color: blue;
+    }
+
+    .register_container {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 7%;
+      margin-top: 20px;
+    }
+
+    h2 {
+      font-size: 30px;
+      margin-left: 5%;
+      margin-top: 3%;
+      text-decoration: none;
+      color: rgb(67, 67, 67);
+      font-family: 'garamond', serif;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Guest mode</h2>
+  <div class="register_container">
+    <button class="register"><a href="{% url 'register' %}" title="Register">Register</a></button>
+  </div>
+
+
+  <div>
+    <h1 class="title">Cash-flow Monitor</h1>
+  </div>
+  <table class="table">
+    <thead class="thead">
+      <tr>
+        <th class="datehead">Date</th>
+        <th id="one" class="wasted">Purchased</th>
+        <th id="two" class="wasted">Wasted Amount</th>
+        <th id="three" class="saved">Not Purchased</th>
+        <th id="four" class="saved">Saved Amount</th>
+        <th style="border: none; background-color: #f5f5f5"></th>
+      </tr>
+    </thead>
+    <tbody id="guest-items">
+    </tbody>
+    <!-- JavaScript will insert rows here -->
+    <tbody>
+      <tr style="background-color: #f5f5f5">
+        <td style="background-color: #f5f5f5; visibility: hidden"></td>
+        <td style="background-color: #f5f5f5; visibility: hidden"></td>
+        <td class="total" id="total-wasted">Total Amount:</td>
+        <td style="background-color: #f5f5f5; visibility: hidden"></td>
+        <td class="total2" id="total-saved">Total Amount:</td>
+        <td style="background-color: #f5f5f5; visibility: hidden"></td>
+        <td style="background-color: #f5f5f5; visibility: hidden"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="display: flex; justify-content: end; margin-right: 160px">
+    <button type="button" class="add-button">
+      <a href="{% url 'guestAdd' %}" title="Add row" style="color: white; text-decoration: none">Add</a>
+    </button>
+  </div>
+
+  <script type="text/javascript" src="{% static 'guestJs/guest.js' %}"></script>
+  <script type="text/javascript" src="{% static 'guestJs/guestHome.js' %}"></script>
+</body>
+
+</html>

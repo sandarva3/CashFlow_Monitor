@@ -1,0 +1,85 @@
+{% load socialaccount %}
+{% providers_media_js %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="{% static 'css/register.css' %}">
+  <style>
+  .email-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+  }
+  .title{
+    font-size: 30px;
+    border-bottom: 1px solid gray;
+    padding: 2px 5px 2px 5px;
+    text-decoration: none;
+    color: rgb(67, 67, 67);
+    font-family: 'Courier New', Courier, monospace;
+  }
+  </style>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    <a class="title" href="{% url 'home' username=user.username %}">Go to Home</a>
+    {% endif %}
+  <div class="content" style="margin-bottom: -50px;">
+    <div class="text">
+      Registration Form
+    </div>
+    <!-- Change the url name to 'register' -->
+    <form action="{% url 'register' %}" method="POST">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="field">
+        {{ form.email }}
+        <!-- Remove the label tag for the email field -->
+        <span class="fas fa-envelope"></span>
+      </div>
+      {{ form.email.errors }}
+      {% for field in form %}
+      <!-- Exclude the password2 field from the form fields -->
+      {% if field.name != "email" and field.name != "password2" %}
+      <div class="field">
+        {{ field }}
+        {{ field.label_tag }}
+        {% if field.name == "username" %}
+        <span class="fas fa-user"></span>
+        {% elif field.name == "password1" %}
+        <span class="fas fa-lock"></span>
+        {% endif %}
+      </div>
+      {{ field.errors }}
+      {% endif %}
+      {% endfor %}
+      <!-- Add a password confirmation field using PasswordInput widget -->
+      <div class="field">
+        <input type="password" name="password2" id="id_password2" required>
+        <label for="id_password2">Confirm Password</label>
+        <span class="fas fa-lock"></span>
+        <!-- Display the error message for the password2 field -->
+      </div>
+      {{ form.password2.errors }}
+      <button type="submit">Register</button>
+      <a href="{% provider_login_url 'google' %}">Continue with Google</a>
+    </form>
+    <div class="sign-up">
+      Already a member? 
+      <!-- Change the url name to 'login' -->
+      <a href="{% url 'login' %}">Sign in</a>
+    </div>
+  </div>
+  <p title="Checkout as Guest"><a href="{% url 'guestHome' %}" style="color: rgb(0, 152, 0);">go as Guest </a></p>
+
+</body>
+
+</html>
+

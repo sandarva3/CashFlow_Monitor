@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register Email</title>
+  <style>
+    /* Your custom styles go here */
+    body {
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin: 50px auto;
+      width: 80%;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .d-flex {
+      display: flex;
+    }
+    .flex-column {
+      flex-direction: column;
+    }
+    .m-auto {
+      margin: auto;
+    }
+    .p-2 {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="d-flex flex-column">
+      <p class="m-auto p-2">
+        We've emailed you instructions to register with the email you entered.
+        You should receive them shortly.
+      </p>
+      <p class="m-auto p-2">
+        If you don't receive an email, please make sure you've entered the address you registered with,
+        and check your spam folder.
+      </p>
+      <p class="m-auto p-2"><a href="{% url 'login' %}">Return to login page</a></p>
+    </div>
+  </div>
+</body>
+</html>

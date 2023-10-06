@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Add</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/add.css' %}">
+  </head>
+  <body>
+    <div class="m-icons">
+      <i class="material-icons"
+        ><a
+          href="{% url 'home' username=user.username %}"
+          title="Close"
+          style="color: white; text-decoration: none"
+          >close</a
+        ></i
+      >
+    </div>
+    <div class="container">
+      <h2>Form</h2>
+      <form method="post" action="{% url 'add' %}" onsubmit="isDateValid();">
+        {% csrf_token %}
+        <div class="form-group">
+          <label style="margin-bottom: 20px">Choose :</label>
+          <div class="radio-group">
+            <input
+              type="radio"
+              id="purchased"
+              name="timeoptions"
+              value="purchased"
+              required
+            />
+            <label for="purchased">Purchased</label>
+            <input
+              type="radio"
+              id="notpurchased"
+              name="timeoptions"
+              value="notpurchased"
+              required
+            />
+            <label for="notpurchased">Not Purchased</label>
+          </div>
+        </div>
+
+        <div class="text-input">
+          <input type="text" id="text" name="text" placeholder="" pattern="[^\d]+" required />
+        </div>
+        <div class="number-input">
+          <input
+            type="number"
+            id="number"
+            name="number"
+            placeholder=""
+            min="0"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="date">Select a date :</label>
+          <div class="date-group">
+            <input type="date" id="date" name="date" />
+            <input type="checkbox" id="today" name="today" checked />
+            <label for="today" style="margin-left: 25px; margin-top: 20px"
+              >Choose today's date</label
+            >
+          </div>
+        </div>
+        <button type="submit" class="submit-button" value="submit">Submit</button>
+      </form>
+    </div>
+    <script type="text/javascript" src="{% static 'js/add.js' %}"></script>
+  </body>
+</html>

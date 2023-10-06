@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Expenditure Table</title>
+        
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        <style>
+            .logout{
+                background-color: rgb(210, 23, 23);
+                font-size: 20px;
+                border-radius: 10px;
+                padding: 2px 5px 2px 5px;
+            }
+            .logout:hover{
+                background-color: rgb(241, 31, 31);
+            }
+            .logout_container{
+                display: flex;
+                justify-content: flex-end;
+                margin-right: 7%;
+                margin-top: 20px;
+            }
+            h2{
+                font-size: 30px;
+                margin-left: 5%;
+                margin-top: 3%;
+                text-decoration: none;
+                color: rgb(67, 67, 67);
+                font-family: 'garamond', serif;
+            }
+        </style>
+    </head>
+
+<body>
+    {% if request.user.is_authenticated %}
+    <h2>Logged-in as: {{request.user.username}}</h2>
+    {% endif %}
+    <div class="logout_container">
+    <button class="logout"><a href="{% url 'logout' %}" title="logout">Logout</a></button>
+    </div>
+    
+    <div>
+        <h1 class="title">Cash-flow Monitor</h1>
+    </div>
+    <table class="table">
+        <thead class="thead">
+            <tr>
+                <th class="datehead">Date</th>
+                <th id="one" class="wasted">Purchased</th>
+                <th id="two" class="wasted">Wasted Amount</th>
+                <th id="three" class="saved">Not Purchased</th>
+                <th id="four" class="saved">Saved Amount</th>
+                <th style="border: none; background-color: #f5f5f5;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items|dictsort:"date" %}
+            <tr id="row1">
+                <td class="date">{% if item.is_purchased or item.notpurchased %} {{ item.date|date:"d M Y" }} {% else %} - {% endif %}</td>
+                <td class="wasted" style="border-right: 1px dotted black;">{% if item.is_purchased %} {{ item.text }} {% else %} - {% endif %}</td>
+                <td id="third" class="wasted">{% if item.is_purchased %} {{ item.number }} {% else %} - {% endif %}</td>
+                <td class="saved" style="border-right: 1px dotted black;">{% if not item.is_purchased %} {{ item.text }} {% else %} - {% endif %}</td>
+                <td class="saved">{% if not item.is_purchased %} {{ item.number }} {% else %} - {% endif %}</td>
+                <td class="cell"><i class="material-icons" title="Delete Row"><a href="{% url 'remove' item.id %}">delete</a></i></td>
+            </tr>
+            {% endfor %}
+            <tr style="background-color: #f5f5f5;">
+                <td style="background-color: #f5f5f5; visibility: hidden;"></td>
+                <td style="background-color: #f5f5f5; visibility: hidden;"></td>
+                <td class="total" id="total-wasted">Total Amount: </td>
+                <td style="background-color: #f5f5f5; visibility: hidden;"></td>
+                <td class="total2" id="total-saved">Total Amount:</td>
+                <td style="background-color: #f5f5f5; visibility: hidden;"></td>
+                <td style="background-color: #f5f5f5; visibility: hidden;"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+
+<div style="display: flex; justify-content: end; margin-right: 160px;">
+    <button type="button" class="add-button">
+        <a href="{% url 'add' %}" title="Add row" style="color: white; text-decoration: none;">Add</a></button>
+</div>
+
+<script type="text/javascript" src="{% static 'js/home.js' %}"></script>
+
+</body>
+</html>
+
