@@ -40,7 +40,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 ## Acknowledgments
-
 There are people who poured their time and effort for creating and developing things that are very helpful for many of us. I am really thankful for them.
 
 The open-source community of people for providing libraries and tools used in this project.
