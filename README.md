@@ -15,6 +15,8 @@ You can visit the live website here: https://expend.pythonanywhere.com/
 
 - **User Registration:** Users without being registered can also use this tool. However, I strongly recommend creating an account for a more reliable and personalized experience.
 
+- **OAuth Authentication:** Cash-flow Monitor provides OAuth authentication, allowing users to log in securely with their Google account without hassle.
+
 
 ## Getting Started
 
