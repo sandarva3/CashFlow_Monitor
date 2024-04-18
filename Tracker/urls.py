@@ -5,9 +5,12 @@ from django.contrib.auth import views as auth_views
 from Trace.views import (
     home_screen_view,
     guestHome_view,
+    whole_view,
+    wholeadd_view,
     add_view,
     guestAdd_view,
     remove_view,
+    Wremove_view,
     login_view,
     register_view,
     logout_view,
@@ -15,6 +18,8 @@ from Trace.views import (
 
 urlpatterns = [
     path('', guestHome_view, name="guestHome"),
+    path('wholething/', whole_view, name="wholething"),
+    path('wholeadd/', wholeadd_view, name="wholeadd"),
     path('admin/', admin.site.urls),
     path('register/', register_view, name="register"),
     path('login/', login_view, name="login"),
@@ -23,6 +28,7 @@ urlpatterns = [
     path("guestadd/", guestAdd_view, name="guestAdd"),
     path('slug:<username>/', home_screen_view, name="home"),
     path('remove/<int:id>', remove_view, name="remove"),
+    path('Wremove/<int:id>', Wremove_view, name="Wremove"),
     path('accounts/', include('allauth.urls')),
 
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'),

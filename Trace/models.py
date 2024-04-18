@@ -25,3 +25,12 @@ class Item(models.Model):
 
     def __str__(self):
         return self.text
+
+class Whole(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    text = models.CharField(max_length=255)
+    number = models.IntegerField()
+    date = models.DateField(default=None, null=True)
+
+    def __str__(self):
+        return self.text

@@ -79,6 +79,45 @@ def home_screen_view(request, username):
 def guestHome_view(request):
     return render(request, "Trace/guestHome.html")
 
+
+def whole_view(request):
+    user = request.user
+    if user.is_authenticated == False:
+        return HttpResponse("you must be registered to view this page")
+    else:
+        try:
+            username = user.username
+            user = CustomUser.objects.get(username=username)
+            items = Whole.objects.filter(user=user).order_by("-date")
+            context = {'items':items}
+            return render(request, "Trace/whole.html", context)
+        except ObjectDoesNotExist:
+            return render(request, "Trace/not.html")
+
+def wholeadd_view(request):
+    user = request.user
+    if user.is_authenticated:
+        if request.method == 'POST':
+            text = request.POST.get('text')
+            number = request.POST.get('number')
+            date = request.POST.get('date')
+            today = request.POST.get('today')
+            if date:
+                date = datetime.datetime.strptime(date, '%Y-%m-%d').date()
+            elif today:
+                date = datetime.date.today()
+            else:
+                date = None
+            item = Whole(user=user,text=text, number=number, date=date)
+            item.save()
+            return redirect('wholething')
+        else:
+            return render(request, "Trace/wholeadd.html")
+    else:
+        return HttpResponse("You must be registered to view this page !")
+    return redirect('login')
+
+
 def guestAdd_view(request):
     return render(request, "Trace/guestAdd.html")
 
@@ -114,3 +153,9 @@ def remove_view(request, id):
     item = Item.objects.get(id=id)
     item.delete()
     return redirect('home', username=user.username)
+
+def Wremove_view(request, id):
+    user=request.user
+    item = Whole.objects.get(id=id)
+    item.delete()
+    return redirect('wholething')
