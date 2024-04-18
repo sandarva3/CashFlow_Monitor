@@ -5,6 +5,8 @@ It was created to address personal struggles with overspending on non-essentials
 By tracking expenses and providing feedback, this tool helps users become more aware of their financial decisions, reduce wasteful spending, and improve their spending habits.
 You can visit the live website here: https://expend.pythonanywhere.com/
 
+Update: There's now another feature called 'wholething' where user can just track their daily expenses.
+
 
 ## Features
 
