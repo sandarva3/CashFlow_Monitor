@@ -8,6 +8,9 @@ from django.forms import EmailField, PasswordInput, TextInput
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
+from django.db.models.functions import TruncMonth
+
 
 class CustomUserCreationForm(CustomUserCreationForm):
     email = EmailField(label='email',required=True, widget=TextInput(attrs={'placeholder': 'Email', 'class': 'email-input'}))
@@ -82,17 +85,31 @@ def guestHome_view(request):
 
 def whole_view(request):
     user = request.user
-    if user.is_authenticated == False:
-        return HttpResponse("you must be registered to view this page")
-    else:
-        try:
-            username = user.username
-            user = CustomUser.objects.get(username=username)
-            items = Whole.objects.filter(user=user).order_by("-date")
-            context = {'items':items}
-            return render(request, "Trace/whole.html", context)
-        except ObjectDoesNotExist:
-            return render(request, "Trace/not.html")
+    if not user.is_authenticated:
+        return HttpResponse("You must be registered to view this page")
+    try:
+        user = CustomUser.objects.get(username=user.username)
+        items = Whole.objects.filter(user=user).order_by("-date")
+
+        items = items.annotate(month=TruncMonth('date'))
+
+        monthly_totals = items.values('month').annotate(total=Sum('number')).order_by('-month')
+
+        monthly_data = {}
+        for month in monthly_totals:
+            monthly_items = items.filter(month=month['month']).order_by('date')
+            monthly_data[month['month']] = {
+                'items': monthly_items,
+                'total': month['total']
+            }
+
+        context = {
+            'monthly_data': monthly_data,
+        }
+        return render(request, "Trace/whole.html", context)
+    except CustomUser.DoesNotExist:
+        return render(request, "Trace/not.html")
+
 
 def wholeadd_view(request):
     user = request.user

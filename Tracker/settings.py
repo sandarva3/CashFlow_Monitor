@@ -12,7 +12,7 @@ SECRET_KEY = 'SECURITY KEY'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['expend.pythonanywhere.com','127.0.0.1']
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -145,7 +145,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         },
-        'CALLBACK_URL': 'http://127.0.0.1:8000/accounts/google/login/callback/'
+        #'CALLBACK_URL': 'http://127.0.0.1:8000/accounts/google/login/callback/'
     }
 }
 
