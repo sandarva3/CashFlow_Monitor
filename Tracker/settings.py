@@ -20,6 +20,7 @@ if DEBUG:
 
 INSTALLED_APPS = [
     'Trace',
+    'events',
 
     'allauth',
     'allauth.account',
@@ -115,6 +116,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'Trace/static'),
+    os.path.join(BASE_DIR, 'events/static'),
 ]
 
 AUTH_USER_MODEL = 'Trace.CustomUser'

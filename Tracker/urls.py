@@ -18,6 +18,7 @@ from Trace.views import (
 
 urlpatterns = [
     path('', guestHome_view, name="guestHome"),
+    path('events/', include('events.urls')),
     path('wholething/', whole_view, name="wholething"),
     path('wholeadd/', wholeadd_view, name="wholeadd"),
     path('admin/', admin.site.urls),

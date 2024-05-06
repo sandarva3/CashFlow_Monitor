@@ -104,7 +104,6 @@ def whole_view(request):
             'monthly_data': monthly_data,
             'monthly_totals':monthly_totals,
         }
-        print(f"OKAY: {monthly_totals}")
         return render(request, "Trace/whole.html", context)
     except CustomUser.DoesNotExist:
         return render(request, "Trace/not.html")
@@ -164,12 +163,14 @@ def add_view(request):
         return HttpResponse("You must be registered to view this page !")
     return redirect('login')
 
+@login_required(login_url='/login/')
 def remove_view(request, id):
     user=request.user
     item = Item.objects.get(id=id)
     item.delete()
     return redirect('home', username=user.username)
 
+@login_required(login_url='/login/')
 def Wremove_view(request, id):
     user=request.user
     item = Whole.objects.get(id=id)
