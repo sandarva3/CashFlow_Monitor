@@ -88,24 +88,23 @@ def whole_view(request):
     if not user.is_authenticated:
         return HttpResponse("You must be registered to view this page")
     try:
-        user = CustomUser.objects.get(username=user.username)
-        items = Whole.objects.filter(user=user).order_by("-date")
-
-        items = items.annotate(month=TruncMonth('date'))
-
+        items = Whole.objects.filter(user=user).annotate(month=TruncMonth('date')).order_by('-month')
         monthly_totals = items.values('month').annotate(total=Sum('number')).order_by('-month')
 
         monthly_data = {}
         for month in monthly_totals:
+
             monthly_items = items.filter(month=month['month']).order_by('date')
             monthly_data[month['month']] = {
-                'items': monthly_items,
+                'items': list(monthly_items),
                 'total': month['total']
             }
 
         context = {
             'monthly_data': monthly_data,
+            'monthly_totals':monthly_totals,
         }
+        print(f"OKAY: {monthly_totals}")
         return render(request, "Trace/whole.html", context)
     except CustomUser.DoesNotExist:
         return render(request, "Trace/not.html")
