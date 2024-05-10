@@ -6,5 +6,5 @@ class Eventform(forms.ModelForm):
         model = Event
         fields = ['name']
         error_messages = {
-            'Names should be less than 125 characters'
-        } 
+                'Names should be less than 125 characters'
+        }

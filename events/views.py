@@ -1,9 +1,10 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .forms import Eventform
 from .models import Event, Eventitems
-from Trace.models import CustomUser
+from Trace.models import CustomUser, Whole
 from django.contrib.auth.decorators import login_required
 import datetime
+
 
 @login_required(login_url='/login/')
 def events_view(request):
@@ -16,6 +17,19 @@ def events_view(request):
     return render(request, 'events/events.html', context)
 
 
+def editevent_view(request, id):
+    event = get_object_or_404(Event, id=id, user=request.user)
+    if request.method == "POST":
+        form = Eventform(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            return redirect('events')
+    else:
+        form = Eventform(instance=event)
+    
+    return render(request, 'events/editevents.html', {'form':form})
+
+
 @login_required(login_url='/login/')
 def addevent_view(request):
     if request.method == "POST":
@@ -23,6 +37,12 @@ def addevent_view(request):
         if form.is_valid():
             event = form.save(commit=False)
             event.user = request.user
+            wintegrate = request.POST.get('wintegration')
+            if wintegrate == "on":
+                event.wintegrate = True
+            else:
+                event.wintegrate = False
+            print(f"The wintegrate is: {event.wintegrate}")
             event.save()
             return redirect('events')
     else:
@@ -59,7 +79,11 @@ def eitemsadd_view(request, id):
             date = None
         user = request.user
         event = Event.objects.get(id=id)
-        item = Eventitems(user=user, name=name, amount=amount, date=date, event=event)
+        if event.wintegrate == True:
+            item = Eventitems(user=user, name=name, amount=amount, date=date, event=event)
+            Whole.objects.create(user=user, text=name, number=amount, date=date)
+        else:
+            item = Eventitems(user=user, name=name, amount=amount, date=date, event=event)
         item.save()
         return redirect('eventitems', id=id)
     else:

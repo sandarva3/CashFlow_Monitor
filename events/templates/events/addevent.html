@@ -13,6 +13,20 @@
             background-color: rgb(94, 94, 94);
             color: white;
         }
+        .form-row {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            margin-right: 0px;
+            display: inline;
+
+        }
+        .container {
+            padding: 20px;
+        }
+        #wintegration{
+          margin-bottom: 0px;
+        }
     </style>
   </head>
   <body>
@@ -28,9 +42,18 @@
     </div>
     <div class="container">
       <h2>Add event</h2>
-      <form method="post">
+      <form method="post" action="{% url 'addevent' %}">
         {% csrf_token %}
         <p>{{form.as_p}}</p>
+
+        <div class="form-row">
+          <label class="form-label" for="wintegration">Integrate with my whole things:</label>
+          <input type="checkbox" id="wintegration" name="wintegration">
+          <p style="font-style: italic; font-size: smaller;">
+            ** if you ticked on above checkbox, your data of this event will also be added to your whole things **
+          </p>
+        </div>
+
         <button type="submit" class="submit-button" value="submit">Submit</button>
       </form>
     </div>
