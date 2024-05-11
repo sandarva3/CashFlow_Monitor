@@ -18,16 +18,27 @@ def events_view(request):
 
 
 def editevent_view(request, id):
-    event = get_object_or_404(Event, id=id, user=request.user)
+    event = Event.objects.get(id=id)
+    print(f"The event name is: {event.name}")
     if request.method == "POST":
-        form = Eventform(request.POST, instance=event)
-        if form.is_valid():
-            form.save()
-            return redirect('events')
-    else:
-        form = Eventform(instance=event)
+        name = request.POST.get('eventName')
+        print(f"The changed name is: {name}")
+        event.name = name
+        event.save()
+        return redirect('events')
     
-    return render(request, 'events/editevents.html', {'form':form})
+#AT FIRST I USED THIS THEN LATER ABOVE CODE WAS USED.
+# def editevent_view(request, id):
+#     event = get_object_or_404(Event, id=id, user=request.user)
+#     if request.method == "POST":
+#         form = Eventform(request.POST, instance=event)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('events')
+#     else:
+#         form = Eventform(instance=event)
+    
+#     return render(request, 'events/editevents.html', {'form':form})
 
 
 @login_required(login_url='/login/')
