@@ -38,10 +38,15 @@
 <body>
     {% if request.user.is_authenticated %}
     <h2>Logged-in as: {{request.user.username}}</h2>
-    <p><a style="color:black; border:black 1px solid;", href="{% url 'wholething' %}" >Whole Thing</a></p>
-    <p><a style="color:black; border:black 1px solid;", href="{% url 'events' %}" >Events</a></p>
-
     {% endif %}
+
+    <button class="whole">
+        <a href="{% url 'wholething' %}" >Whole Thing</a>
+    </button>
+    <button class="events">
+        <a href="{% url 'events' %}" >Events</a>
+    </button>
+
     <div class="logout_container">
     <button class="logout"><a href="{% url 'logout' %}" title="logout">Logout</a></button>
     </div>

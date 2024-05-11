@@ -38,8 +38,13 @@
 <body>
     {% if request.user.is_authenticated %}
     <h2>Logged-in as: {{request.user.username}}</h2>
-    <p><a style="color:black; border:black 1px solid;", href="{% url 'home' username=user.username %}" >back to main page</a></p>
+    <button class="home">
+      <a href="{% url 'home' username=user.username %}" >Home</a>
+    </button>
 
+    <button class="events">
+        <a href="{% url 'events' %}" >Events</a>
+    </button>
     
     <div class="logout_container">
     <button class="logout"><a href="{% url 'logout' %}" title="logout">Logout</a></button>

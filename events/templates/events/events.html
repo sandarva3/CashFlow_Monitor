@@ -85,21 +85,24 @@
       .createbutton:hover{
         background-color:  #e6e6e6;
       }
-    </style>
+  </style>
+
   </head>
   <body>
     {% if request.user.is_authenticated %}
     <h2>Logged-in as: {{ request.user.username }}</h2>
-    <p>
-      <a href="{% url 'home' username=user.username %}">Back to main page</a>
-    </p>
-
-    {% endif %}
+    <button class="home">
+      <a href="{% url 'home' username=user.username %}" style="color: white; text-decoration: none;" >Home</a>
+    </button>
+    <button class="whole">
+      <a href="{% url 'wholething' %}" style="color: white; text-decoration: none;" >Whole Thing</a>
+    </button>
     <div class="logout_container">
       <button class="logout">
-        <a href="{% url 'logout' %}" title="logout">Logout</a>
+        <a href="{% url 'logout' %}" title="logout" style="color: white; text-decoration: none;">Logout</a>
       </button>
     </div>
+    {% endif %}
 
     <div>
       <h1 class="title">Cash-flow Monitor</h1>
