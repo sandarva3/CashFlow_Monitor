@@ -79,19 +79,21 @@ def eitemsadd_view(request, id):
             date = None
         user = request.user
         event = Event.objects.get(id=id)
-        if event.wintegrate == True:
-            item = Eventitems(user=user, name=name, amount=amount, date=date, event=event)
-            Whole.objects.create(user=user, text=name, number=amount, date=date)
-        else:
-            item = Eventitems(user=user, name=name, amount=amount, date=date, event=event)
+        item = Eventitems(user=user, name=name, amount=amount, date=date, event=event)
         item.save()
+        if event.wintegrate == True:
+            Whole.objects.create(user=user, text=name, number=amount, date=date, event_id=item.id)
+
         return redirect('eventitems', id=id)
-    else:
-        return render(request, 'events/eitemadd.html', {'id':id})
+    return render(request, 'events/eitemadd.html', {'id':id})
 
 
 def eitemremove_view(request, id, eid):
     item = Eventitems.objects.get(id=id)
+    event = Event.objects.get(id=eid)
+    if event.wintegrate == True:
+        witem = Whole.objects.get(event_id=id)
+        witem.delete()
     item.delete()
     return redirect('eventitems', id=eid)
     

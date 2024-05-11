@@ -31,6 +31,7 @@ class Whole(models.Model):
     text = models.CharField(max_length=255)
     number = models.IntegerField()
     date = models.DateField(default=None, null=True)
+    event_id = models.IntegerField(null=True)
 
     def __str__(self):
         return self.text
