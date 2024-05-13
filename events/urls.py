@@ -6,12 +6,14 @@ from .views import(
     eitemsadd_view,
     eitemremove_view,
     editevent_view,
+    delete_event_view,
 )
 
 
 urlpatterns = [
     path('', events_view, name='events'),
     path('addevent/', addevent_view, name='addevent'),
+    path('deleteevent/<int:id>', delete_event_view, name="deleteevent"),
     path('eventitems/<int:id>/', eventitems_view, name='eventitems'),
     path('eitemadd/<int:id>/', eitemsadd_view, name='eitemadd'),
     path('eitemremove/<int:id>/<int:eid>', eitemremove_view, name='eitemremove'),

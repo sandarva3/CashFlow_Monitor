@@ -107,4 +107,10 @@ def eitemremove_view(request, id, eid):
         witem.delete()
     item.delete()
     return redirect('eventitems', id=eid)
-    
+
+
+def delete_event_view(request, id):
+    event = get_object_or_404(Event, id=id, user=request.user)
+    print(f"The deleted event: {event}")
+    event.delete()
+    return redirect('events')

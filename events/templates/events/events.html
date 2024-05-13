@@ -85,7 +85,7 @@
       .createbutton:hover{
         background-color: rgb(255, 255, 255);
       }
-      .material-icons{
+      .buts{
         border: 1px solid black;
         border-radius: 5px;
         opacity: 30%;
@@ -131,6 +131,17 @@
 #eventidtopass{
   visibility: hidden;
 }
+.deleteButton{
+  background-color: red;
+  color: white;
+  font-size: small;
+  padding: 0px;
+  cursor: pointer;
+}
+.delbtntxt{
+  color: white;
+  display: inline;
+}
   </style>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
@@ -156,27 +167,42 @@
     <div class="events-list">
       <h3>
       {% for event in events %}
-        <a style="color: black; text-decoration: none;" href="" class="material-icons" title="Edit name" onclick="openEditForm('{{ event.0 }}', '{{ event.1 }}')" >
+        <a style="color: black; text-decoration: none;" href="" class="material-icons buts" title="Edit name" onclick="openEditForm('{{ event.0 }}', '{{ event.1 }}')" >
           edit
         </a>
 
         <div id="editFormOverlay" class="overlay" style="display: none;">
           <div class="overlay-content">
             <span class="close-btn" onclick="closeEditForm()">&times;</span>
-            <form id="editEventForm" method="post">
+            <form id="editEventForm" >
               {% csrf_token %}
-              <label for="eventId">Change Name:{{event.1}}</label>
+              <label for="eventId">Change Name:</label>
               <input type="hidden" id="eventId" name="eventId">
               <input type="text" id="eventName" name="eventName" value="">
               <br>
               <br>
-              <button type="submit" style="font-size: medium; cursor: pointer;">Submit</button>
-    
+              <button type="submit" style="font-size: medium; cursor: pointer;" onclick="formSubmit('{{event.1}}')">Submit</button>
+              <br><br>
+
+             
+              <button class="deleteButton" onclick="deleteevent()">
+                <p class="delbtntxt">
+                Delete event
+                </p>
+                <p class="material-icons deltxt" title="Delete this event"
+                style="text-decoration: none;
+                margin-top: 5px;
+                font-size: small;">
+                  delete
+                 </p>
+              </button>
+
             </form>
           </div>
         </div>
 
         <a class="event" style="color: black; text-decoration: none;" href="{% url 'eventitems' event.1 %}">{{ event.0 }}</a>
+        
         <br />
         {% endfor %}
       </h3>
@@ -195,9 +221,18 @@
         document.getElementById('editFormOverlay').style.display = 'flex';
         document.getElementById('eventName').value = eventName;
         document.getElementById('eventId').value = eventId;
-
+      }
+      function formSubmit(eventId){
         var form = document.getElementById('editEventForm');
         var actionUrl = '{% url "editevent" "123" %}'.replace('123', eventId);
+        form.method = "post";
+        form.action = actionUrl;
+      }
+
+      function deleteevent(){
+        var eventId = document.getElementById('eventId').value;
+        var form = document.getElementById('editEventForm');
+        var actionUrl = '{% url "deleteevent" "123" %}'.replace('123', eventId);
         form.method = "post";
         form.action = actionUrl;
       }
